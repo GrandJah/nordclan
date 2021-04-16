@@ -1,6 +1,9 @@
 const authModeOn = isAuth => {
   document.getElementById("action").hidden = !isAuth;
   document.getElementById("login").hidden = isAuth;
+  if (isAuth) {
+    openCalendar();
+  }
 }
 
 const toggleText = element => {
@@ -169,26 +172,34 @@ function getEvent(start, end, timezone, callback) {
   callback(events)
 }
 
-$(document).ready(() => {
-  $('.datetimepicker').datepicker({
-    timepicker: true,
-    language: 'en',
-    range: true,
-    multipleDates: true,
-    multipleDatesSeparator: " - "
+const openCalendar = () => {
+  $('#calendar').fullCalendar({
+    themeSystem: 'bootstrap4',
+    defaultView: 'agendaWeek',
+    header: {
+      left: 'title',
+      right: 'today prev next'
+    },
+    allDaySlot: false,
+    slotLabelFormat: 'HH:mm',
+    events: getEvent,
+    eventRender: function (event, element) {
+      if (event.icon) {
+        element.find(".fc-title").prepend("<i class='fa fa-" + event.icon + "'></i>");
+      }
+    },
+    dayClick: function () {
+      $('#modal-view-event-add').modal();
+    },
+    eventClick: function (event, jsEvent, view) {
+      $('.event-icon').html("<i class='fa fa-" + event.icon + "'></i>");
+      $('.event-title').html(event.title);
+      $('.event-body').html(event.description);
+      $('.eventUrl').attr('href', event.url);
+      $('#modal-view-event').modal();
+    }
   });
-
-  $("#add-event").submit(() => {
-    event.preventDefault();
-    var values = {};
-    $.each($('#add-event').serializeArray(), function (i, field) {
-      values[field.name] = field.value;
-    });
-    console.log("create event:");
-    console.log(values);
-    $('#calendar').fullCalendar('refetchEvents');
-  });
-});
+}
 
 (() => {
     getStatus();
@@ -199,35 +210,26 @@ $(document).ready(() => {
       };
     });
 
-    $(() => {
-      setTimeout(() => jQuery('#calendar').fullCalendar({
-        themeSystem: 'bootstrap4',
-        defaultView: 'agendaWeek',
-        header: {
-          left: 'title',
-          right: 'today prev next'
-        },
-        allDaySlot: false,
-        slotLabelFormat: 'HH:mm',
-        minTime: "06:00:00",
-        maxTime: "20:00:00",
-        events: getEvent,
-        eventRender: function (event, element) {
-          if (event.icon) {
-            element.find(".fc-title").prepend("<i class='fa fa-" + event.icon + "'></i>");
-          }
-        },
-        dayClick: function () {
-          $('#modal-view-event-add').modal();
-        },
-        eventClick: function (event, jsEvent, view) {
-          $('.event-icon').html("<i class='fa fa-" + event.icon + "'></i>");
-          $('.event-title').html(event.title);
-          $('.event-body').html(event.description);
-          $('.eventUrl').attr('href', event.url);
-          $('#modal-view-event').modal();
-        }
-      }), 150);
+    $('.datetimepicker').datepicker({
+      timepicker: true,
+      language: 'en',
+      range: true,
+      multipleDates: true,
+      multipleDatesSeparator: " - "
+    });
+
+    $("#add-event").submit(() => {
+      event.preventDefault();
+      var values = {};
+      $.each($('#add-event').serializeArray(), function (i, field) {
+        values[field.name] = field.value;
+      });
+      console.log("create event:");
+      console.log(values);
+      const calendar = $('#calendar').fullCalendar('getCalendar');
+      console.log(calendar)
+      calendar.refetchEvents();
+      calendar.render();
     });
   }
 )();
