@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 @Configuration
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
-@EnableJpaRepositories("com.nordclan.test.repository")
+@EnableJpaRepositories("com.nordclan.test")
 public class DataConfig {
 
   @Bean
@@ -44,7 +44,7 @@ public class DataConfig {
     vendorAdapter.setGenerateDdl(true);
     LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
     factory.setJpaVendorAdapter(vendorAdapter);
-    factory.setPackagesToScan("com.nordclan.test.model");
+    factory.setPackagesToScan("com.nordclan.test");
     factory.setDataSource(ds);
     return factory;
   }

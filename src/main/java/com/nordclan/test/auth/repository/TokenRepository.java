@@ -1,10 +1,10 @@
-package com.nordclan.test.repository;
+package com.nordclan.test.auth.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nordclan.test.model.TokenEntity;
-import com.nordclan.test.model.User;
+import com.nordclan.test.auth.model.TokenEntity;
+import com.nordclan.test.auth.model.User;
 
 public interface TokenRepository extends CrudRepository<TokenEntity, Long> {
 

@@ -1,8 +1,8 @@
-package com.nordclan.test.repository;
+package com.nordclan.test.auth.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.nordclan.test.model.User;
+import com.nordclan.test.auth.model.User;
 import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Long> {

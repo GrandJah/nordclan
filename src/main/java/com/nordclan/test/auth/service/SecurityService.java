@@ -1,4 +1,4 @@
-package com.nordclan.test.service;
+package com.nordclan.test.auth.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -7,8 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.nordclan.test.model.TokenEntity;
-import com.nordclan.test.model.User;
+import com.nordclan.test.auth.model.TokenEntity;
+import com.nordclan.test.auth.model.User;
+import com.nordclan.test.auth.repository.TokenRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.sql.Date;
@@ -22,7 +23,6 @@ import javax.servlet.Filter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.nordclan.test.repository.TokenRepository;
 
 @Service
 public class SecurityService {

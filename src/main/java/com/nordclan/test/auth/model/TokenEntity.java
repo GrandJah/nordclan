@@ -1,4 +1,4 @@
-package com.nordclan.test.model;
+package com.nordclan.test.auth.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,14 +10,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "token")
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class TokenEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(unique = true, nullable = false)
+  @EqualsAndHashCode.Include
   private Long id;
 
   @Column(unique = true, nullable = false, length = 36)

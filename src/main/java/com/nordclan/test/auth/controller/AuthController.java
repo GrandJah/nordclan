@@ -1,4 +1,4 @@
-package com.nordclan.test.controller;
+package com.nordclan.test.auth.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nordclan.test.auth.model.Status;
+import com.nordclan.test.auth.model.TokenEntity;
+import com.nordclan.test.auth.model.User;
+import com.nordclan.test.auth.service.AuthService;
 import javax.servlet.http.HttpServletResponse;
-import com.nordclan.test.model.Status;
-import com.nordclan.test.model.TokenEntity;
-import com.nordclan.test.model.User;
-import com.nordclan.test.service.AuthService;
 
 @Controller
 public class AuthController {

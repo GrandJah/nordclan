@@ -1,4 +1,4 @@
-package com.nordclan.test.model;
+package com.nordclan.test.auth.model;
 
 import lombok.Data;
 

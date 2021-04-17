@@ -1,11 +1,11 @@
-package com.nordclan.test.service;
+package com.nordclan.test.auth.service;
 
 import org.springframework.stereotype.Service;
 
-import com.nordclan.test.model.Status;
-import com.nordclan.test.model.TokenEntity;
-import com.nordclan.test.model.User;
-import com.nordclan.test.repository.UserRepository;
+import com.nordclan.test.auth.model.Status;
+import com.nordclan.test.auth.model.TokenEntity;
+import com.nordclan.test.auth.model.User;
+import com.nordclan.test.auth.repository.UserRepository;
 import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 

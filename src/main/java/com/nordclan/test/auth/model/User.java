@@ -1,4 +1,4 @@
-package com.nordclan.test.model;
+package com.nordclan.test.auth.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,11 +12,12 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "users")
 @Data
-@EqualsAndHashCode(exclude = "password")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(unique = true, nullable = false)
+  @EqualsAndHashCode.Include
   private Long id;
 
   @Column(unique = true, nullable = false, length = 50)
