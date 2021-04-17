@@ -54,7 +54,7 @@ const getStatus = () => {
   actionForm = true
   ajax("status", {}, () => {
     clearTimeout(timer);
-    timer = setTimeout(getStatus, 5000);
+    timer = setTimeout(getStatus, 60000);
   })
 }
 
@@ -110,66 +110,10 @@ const checkButton = () => {
   document.getElementById("registrationButton").disabled = !flag;
 }
 
-const events = [
-  {
-    title: 'Event',
-    description: 'description event',
-    start: '2021-04-15T13:00:00',
-    end: '2021-04-15T14:00:00',
-    className: 'fc-bg-pinkred',
-    icon: "group",
-    allDay: false
-  },
-  {
-    title: 'Flight Paris',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu pellentesque nibh. In nisl nulla, convallis ac nulla eget, pellentesque pellentesque magna.',
-    start: '2021-04-08T14:00:00',
-    end: '2021-04-08T20:00:00',
-    className: 'fc-bg-deepskyblue',
-    icon: "cog",
-    allDay: false
-  },
-  {
-    title: 'Team Meeting',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu pellentesque nibh. In nisl nulla, convallis ac nulla eget, pellentesque pellentesque magna.',
-    start: '2021-04-10T13:00:00',
-    end: '2021-04-10T16:00:00',
-    className: 'fc-bg-pinkred',
-    icon: "group",
-    allDay: false
-  },
-  {
-    title: 'Restaurant',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu pellentesque nibh. In nisl nulla, convallis ac nulla eget, pellentesque pellentesque magna.',
-    start: '2021-04-15T09:30:00',
-    end: '2021-04-15T11:45:00',
-    className: 'fc-bg-default',
-    icon: "glass",
-    allDay: false
-  },
-  {
-    title: 'Dinner',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu pellentesque nibh. In nisl nulla, convallis ac nulla eget, pellentesque pellentesque magna.',
-    start: '2021-04-15T20:00:00',
-    end: '2021-04-15T22:30:00',
-    className: 'fc-bg-default',
-    icon: "cutlery",
-    allDay: false
-  },
-  {
-    title: 'Dentist',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu pellentesque nibh. In nisl nulla, convallis ac nulla eget, pellentesque pellentesque magna.',
-    start: '2021-04-29T11:30:00',
-    end: '2021-04-29T012:30:00',
-    className: 'fc-bg-blue',
-    icon: "medkit",
-    allDay: false
-  }];
-
 function getEvent(start, end, timezone, callback) {
-  console.log("getEvents")
-  console.log(start.format(), end.format(), timezone);
-  callback(events)
+  ajax("api/event", {start: start.format(), end: end.format()}, data => {
+    callback(data);
+  })
 }
 
 const openCalendar = () => {
@@ -212,10 +156,10 @@ const openCalendar = () => {
 
     $('.datetimepicker').datepicker({
       timepicker: true,
+      minutesStep:30,
       language: 'en',
-      range: true,
-      multipleDates: true,
-      multipleDatesSeparator: " - "
+      time: true,
+      dateFormat:'mm.dd.yyyy',
     });
 
     $("#add-event").submit(() => {
@@ -224,12 +168,14 @@ const openCalendar = () => {
       $.each($('#add-event').serializeArray(), function (i, field) {
         values[field.name] = field.value;
       });
-      console.log("create event:");
-      console.log(values);
-      const calendar = $('#calendar').fullCalendar('getCalendar');
-      console.log(calendar)
-      calendar.refetchEvents();
-      calendar.render();
+      ajax("api/create", {
+        title: values.ename,
+        description: values.edesc,
+        start: new Date(values.edatestart).toISOString(),
+        end: new Date(values.edateend).toISOString()
+      }, data => {
+        $('#calendar').fullCalendar('refetchEvents');
+      })
     });
   }
 )();
