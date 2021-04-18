@@ -1,10 +1,10 @@
 package com.nordclan.test.eventmanager.model;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 import lombok.Data;
 
 @Data
 public class TimeRange {
-  Timestamp start;
-  Timestamp end;
+  Instant start;
+  Instant end;
 }

@@ -1,7 +1,7 @@
 package com.nordclan.test.eventmanager.model;
 
 import com.nordclan.test.auth.model.User;
-import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,10 +20,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Event {
   @Column(nullable = false, name = "startevent")
-  Timestamp start;
+  Instant start;
 
   @Column(nullable = false, name = "endevent")
-  Timestamp end;
+  Instant end;
 
   @ManyToMany(fetch = FetchType.EAGER)
   List<User> members;

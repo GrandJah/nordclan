@@ -120,6 +120,14 @@ const openCalendar = () => {
   $('#calendar').fullCalendar({
     themeSystem: 'bootstrap4',
     defaultView: 'agendaWeek',
+    firstDay: 1,
+    timezone: 'UTC',
+    timeFormat: 'H:mm',
+    slotEventOverlap: false,
+    displayEventTime: true,
+    displayEventEnd: true,
+    nextDayThreshold: "00:00:00",
+    slotLabelInterval: '00:30',
     header: {
       left: 'title',
       right: 'today prev next'
@@ -127,19 +135,12 @@ const openCalendar = () => {
     allDaySlot: false,
     slotLabelFormat: 'HH:mm',
     events: getEvent,
-    eventRender: function (event, element) {
-      if (event.icon) {
-        element.find(".fc-title").prepend("<i class='fa fa-" + event.icon + "'></i>");
-      }
-    },
     dayClick: function () {
       $('#modal-view-event-add').modal();
     },
     eventClick: function (event, jsEvent, view) {
-      $('.event-icon').html("<i class='fa fa-" + event.icon + "'></i>");
       $('.event-title').html(event.title);
       $('.event-body').html(event.description);
-      $('.eventUrl').attr('href', event.url);
       $('#modal-view-event').modal();
     }
   });
@@ -154,12 +155,26 @@ const openCalendar = () => {
       };
     });
 
+    const timeFormat = 'hh:ii';
+    const dateFormat = 'dd.mm.yyyy';
+    const dateTimeFormat = 'DD.MM.YYYY HH:mm'
+
+    const getTime = dateString => {
+      console.log(dateString)
+      const d = new Date(moment(dateString, dateTimeFormat).utc());
+      console.log(d)
+      return new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString();
+    }
+
     $('.datetimepicker').datepicker({
       timepicker: true,
-      minutesStep:30,
+      firstDay: "1",
+      minutesStep: 30,
       language: 'en',
+
       time: true,
-      dateFormat:'mm.dd.yyyy',
+      timeFormat,
+      dateFormat
     });
 
     $("#add-event").submit(() => {
@@ -171,8 +186,8 @@ const openCalendar = () => {
       ajax("api/create", {
         title: values.ename,
         description: values.edesc,
-        start: new Date(values.edatestart).toISOString(),
-        end: new Date(values.edateend).toISOString()
+        start: getTime(values.edatestart),
+        end: getTime(values.edateend)
       }, data => {
         $('#calendar').fullCalendar('refetchEvents');
       })
