@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="main.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700&display=swap"
           rel="stylesheet">
+    <link href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css"
+          rel="stylesheet">
     <title>Title</title>
 </head>
 <body>
@@ -105,19 +107,25 @@
                         </div>
                         <div class="form-group">
                             <label>Start event Date&Time</label>
-                            <input autocomplete="off" type='text' class="datetimepicker form-control" name="edatestart">
+                            <input autocomplete="off" type='text'
+                                   class="datetimepicker form-control" name="edatestart">
                         </div>
                         <div class="form-group">
                             <label>End event Date&Time</label>
-                            <input autocomplete="off" type='text' class="datetimepicker form-control" name="edateend">
+                            <input autocomplete="off" type='text'
+                                   class="datetimepicker form-control" name="edateend">
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">
-                            Close
-                        </button>
-                    </div>
+                        <div class="form-group">
+                            <label>Members</label>
+                            <input autocomplete="off" multiple="multiple"
+                                   class="multiselect form-control" name="members">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
                 </form>
             </div>
         </div>
@@ -146,6 +154,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"
         integrity="sha512-iusSCweltSRVrjOz+4nxOL9OXh2UA0m8KdjsX8/KUUiJz+TCNzalwE0WE6dYTfHDkXuGuHq3W9YIhDLN7UNB0w=="
         crossorigin="anonymous"></script>
+<script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
 <script type="text/javascript" src="main.js"></script>
 </body>
 </html>

@@ -29,10 +29,14 @@ public class EventController {
     return ResponseEntity.ok(this.eventService.getEventsFromRange(range));
   }
 
+  @PostMapping("/members")
+  public ResponseEntity<List<String>> members() {
+    return ResponseEntity.ok(this.eventService.getUserLogins());
+  }
+
   @PostMapping("/create")
   public ResponseEntity<Status> create(@RequestBody(required = false) Event event,
     @AuthenticationPrincipal TokenEntity authPrincipal) {
-    event.setCreator(authPrincipal.getUser());
-    return ResponseEntity.ok(this.eventService.createEvent(event));
+    return ResponseEntity.ok(this.eventService.createEvent(event, authPrincipal.getUser()));
   }
 }

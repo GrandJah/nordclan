@@ -50,11 +50,22 @@ const ajax = (url, data, callback) => {
 
 let timer;
 
+const multiselect = $('.multiselect').multipleSelect({
+  selectAll: false,
+  data: []
+});
+
 const getStatus = () => {
   actionForm = true
   ajax("status", {}, () => {
     clearTimeout(timer);
     timer = setTimeout(getStatus, 60000);
+    ajax("api/members", {}, data => {
+      multiselect.multipleSelect('refreshOptions', {
+        selectAll: false,
+        data: [...data]
+      })
+    });
   })
 }
 
@@ -111,7 +122,10 @@ const checkButton = () => {
 }
 
 function getEvent(start, end, timezone, callback) {
+  console.log("getEvents")
+  console.log(start.format(), end.format(), timezone);
   ajax("api/event", {start: start.format(), end: end.format()}, data => {
+    console.log(data);
     callback(data);
   })
 }
@@ -181,14 +195,18 @@ const openCalendar = () => {
       event.preventDefault();
       var values = {};
       $.each($('#add-event').serializeArray(), function (i, field) {
+        console.log(field.name)
         values[field.name] = field.value;
       });
+      console.log(values)
       ajax("api/create", {
         title: values.ename,
         description: values.edesc,
         start: getTime(values.edatestart),
-        end: getTime(values.edateend)
+        end: getTime(values.edateend),
+        members: values.members.split(',')
       }, data => {
+        console.log(data);
         $('#calendar').fullCalendar('refetchEvents');
       })
     });

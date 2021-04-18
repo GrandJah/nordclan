@@ -10,7 +10,7 @@ create table if not exists event
 
 create table if not exists event_users
 (
-    event_id   bigint references users not null,
-    members_id bigint references event not null
+    event_id   bigint references event not null,
+    members_id bigint references users not null
 );
 

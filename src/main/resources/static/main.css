@@ -1682,3 +1682,8 @@ h2 {
     box-shadow: none;
     height: 50px;
 }
+
+.multiselect button {
+    border: 0;
+    outline: 0;
+}
