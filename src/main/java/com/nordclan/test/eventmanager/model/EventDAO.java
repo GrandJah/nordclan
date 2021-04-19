@@ -1,6 +1,7 @@
 package com.nordclan.test.eventmanager.model;
 
 import com.nordclan.test.auth.model.User;
+import com.nordclan.test.auth.model.UserInfo;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +46,7 @@ public class EventDAO {
   private User creator;
 
   @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(name = "event_users",
-    joinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "members_id", referencedColumnName = "id"))
+  @JoinTable(name = "event_users", joinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "members_id", referencedColumnName = "id"))
   private List<User> members = new ArrayList<>();
 
   static public EventDAO fromEvent(Event event) {
@@ -67,9 +66,9 @@ public class EventDAO {
     dto.setEnd(event.getEnd());
     dto.setTitle(event.getTitle());
     dto.setDescription(event.getDescription());
-    dto.setCreator(event.getCreator().getLogin());
+    dto.setCreator(event.getCreator().getFullname());
     dto.getMembers()
-      .addAll(event.members.stream().map(User::getLogin).collect(Collectors.toList()));
+      .addAll(event.members.stream().map(UserInfo::fromUser).collect(Collectors.toList()));
     return dto;
   }
 }

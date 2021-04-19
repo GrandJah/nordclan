@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nordclan.test.auth.model.Status;
 import com.nordclan.test.auth.model.TokenEntity;
+import com.nordclan.test.auth.model.UserInfo;
 import com.nordclan.test.eventmanager.model.Event;
 import com.nordclan.test.eventmanager.model.TimeRange;
 import com.nordclan.test.eventmanager.service.EventService;
@@ -30,8 +31,8 @@ public class EventController {
   }
 
   @PostMapping("/members")
-  public ResponseEntity<List<String>> members() {
-    return ResponseEntity.ok(this.eventService.getUserLogins());
+  public ResponseEntity<List<UserInfo>> members() {
+    return ResponseEntity.ok(this.eventService.getUserInfo());
   }
 
   @PostMapping("/create")

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.nordclan.test.auth.model.Status;
 import com.nordclan.test.auth.model.User;
+import com.nordclan.test.auth.model.UserInfo;
 import com.nordclan.test.auth.repository.UserRepository;
 import com.nordclan.test.eventmanager.model.Event;
 import com.nordclan.test.eventmanager.model.EventDAO;
@@ -69,14 +70,15 @@ public class EventService {
 
     EventDAO eventDAO = EventDAO.fromEvent(event);
     eventDAO.setCreator(user);
-    eventDAO.setMembers(this.users.findByLoginIn(event.getMembers()));
+    eventDAO.setMembers(this.users.findByFullnameIn(
+      event.getMembers().stream().map(UserInfo::getUsername).collect(Collectors.toList())));
     this.eventStorage.save(eventDAO);
     return Status.ok();
   }
 
-  public List<String> getUserLogins() {
+  public List<UserInfo> getUserInfo() {
     return StreamSupport.stream(this.users.findAll().spliterator(), false)
-      .map(User::getLogin)
+      .map(UserInfo::fromUser)
       .collect(Collectors.toList());
   }
 }

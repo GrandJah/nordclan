@@ -7,11 +7,15 @@ body {
     margin: auto
 }
 
-#report, #logout, #toggleForm {
+#report, #toggleForm {
     width:98%;
     margin: 15px auto 30px;
 }
 
+#logout {
+    padding: 3px 3px !important;
+    margin: 0 5px;
+}
 
 .status-group {
     max-width: 160px;

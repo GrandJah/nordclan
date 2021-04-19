@@ -57,13 +57,16 @@ const multiselect = $('.multiselect').multipleSelect({
 
 const getStatus = () => {
   actionForm = true
-  ajax("status", {}, () => {
+  ajax("status", {}, data => {
+    if (data.username !== undefined) {
+      document.querySelector("#username").innerText = data.username
+    }
     clearTimeout(timer);
     timer = setTimeout(getStatus, 60000);
     ajax("api/members", {}, data => {
       multiselect.multipleSelect('refreshOptions', {
         selectAll: false,
-        data: [...data]
+        data: data.map(el => el.username)
       })
     });
   })
@@ -204,7 +207,11 @@ const openCalendar = () => {
         description: values.edesc,
         start: getTime(values.edatestart),
         end: getTime(values.edateend),
-        members: values.members.split(',')
+        members: values.members.split(',').map(el => {
+          return {
+            username: el
+          }
+        })
       }, data => {
         console.log(data);
         $('#calendar').fullCalendar('refetchEvents');

@@ -23,8 +23,7 @@ public class AuthService {
 
   public Status checkUser(HttpServletResponse response, User loginUser) {
     Optional<User> regUser = userStorage.findByLogin(loginUser.getLogin());
-    if (!regUser.isPresent() || !regUser.get()
-                                     .checkPass(loginUser.getPassword())) {
+    if (!regUser.isPresent() || !regUser.get().checkPass(loginUser.getPassword())) {
       return Status.error("User not found");
     }
     securityService.createToken(regUser.get(), response);
@@ -40,8 +39,10 @@ public class AuthService {
     if (findUser.isPresent()) {
       return Status.error(String.format("user %s is exist", user.getLogin()));
     }
-    int userLoginLen = user.getLogin()
-                           .length();
+    if (user.getFullname() == null) {
+      user.setFullname("");
+    }
+    int userLoginLen = user.getLogin().length();
     if (userLoginLen >= 6 && userLoginLen <= 50) {
       userStorage.save(user);
       return Status.message(String.format("user %s registration", user.getLogin()));

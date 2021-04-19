@@ -1,5 +1,6 @@
 package com.nordclan.test.eventmanager.model;
 
+import com.nordclan.test.auth.model.UserInfo;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,5 +22,5 @@ public class Event {
 
   private String creator;
 
-  private List<String> members = new ArrayList<>();
+  private List<UserInfo> members = new ArrayList<>();
 }

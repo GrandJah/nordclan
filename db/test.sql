@@ -1,6 +1,6 @@
-INSERT INTO users (id, login, password)
-VALUES (1, 'qwerty', 'qwerty'),
-       (2, 'qazwsx', 'qazwsx');
+INSERT INTO users (id, login, password, fullname)
+VALUES (1, 'qwerty', 'qwerty', 'UserName 1'),
+       (2, 'qazwsx', 'qazwsx', 'UserName 2');
 
 INSERT INTO event (startevent, endevent, creator_id, title, description)
 VALUES ('2021-04-12 14:00:00', '2021-04-12 15:30:00', 1, 'Встреча1', 'Тема встречи1'),

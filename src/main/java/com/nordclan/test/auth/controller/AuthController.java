@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.nordclan.test.auth.model.Status;
 import com.nordclan.test.auth.model.TokenEntity;
 import com.nordclan.test.auth.model.User;
+import com.nordclan.test.auth.model.UserInfo;
 import com.nordclan.test.auth.service.AuthService;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,7 +40,7 @@ public class AuthController {
   }
 
   @PostMapping("/status")
-  public ResponseEntity<Status> echo(@AuthenticationPrincipal TokenEntity tokenEntity) {
-    return ResponseEntity.ok(Status.message(tokenEntity.getUser().getLogin()));
+  public ResponseEntity<UserInfo> echo(@AuthenticationPrincipal TokenEntity tokenEntity) {
+    return ResponseEntity.ok(UserInfo.fromUser(tokenEntity.getUser()));
   }
 }
