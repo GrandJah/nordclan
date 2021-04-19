@@ -75,13 +75,16 @@
         </div>
     </div>
 
-    <!-- calendar modal -->
     <div id="modal-view-event" class="modal modal-top fade calendar-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
                     <h4 class="modal-title"><span class="event-title"></span></h4>
-                    <div class="event-body"></div>
+                    <h6>creator: <span class="event-creator"></span></h6>
+                    <h6 class="event-time"></h6>
+                    <div class="event-body px-1"></div>
+                    <h6>Members:</h6>
+                    <ul class="event-members"></ul>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close
@@ -126,6 +129,7 @@
                                 Close
                             </button>
                         </div>
+                    </div>
                 </form>
             </div>
         </div>

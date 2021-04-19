@@ -155,9 +155,21 @@ const openCalendar = () => {
     dayClick: function () {
       $('#modal-view-event-add').modal();
     },
-    eventClick: function (event, jsEvent, view) {
+    eventClick: function (event) {
+      $('.event-creator').html(event.creator);
       $('.event-title').html(event.title);
+      $('.event-time').html(
+        `${moment(event.start).format('DD.MM.YYYY HH:mm')} - ${moment(event.end).format('DD.MM.YYYY HH:mm')}`);
       $('.event-body').html(event.description);
+      const members = document.querySelector('.event-members')
+      members.innerHTML = ''
+      event.members.forEach(
+        member => {
+          const li = document.createElement('li');
+          li.innerText = member.username
+          members.appendChild(li)
+        }
+      );
       $('#modal-view-event').modal();
     }
   });
