@@ -39,6 +39,9 @@ public class EventService {
   }
 
   private Instant alignInstantHalfHours(Instant instant, boolean direction) {
+    if (instant.getEpochSecond() % HALF_HOURS == 0) {
+      return instant;
+    }
     return Instant.ofEpochSecond(
       ((instant.getEpochSecond() / HALF_HOURS) + (direction ? 1 : 0)) * HALF_HOURS);
   }
@@ -71,7 +74,7 @@ public class EventService {
     EventDAO eventDAO = EventDAO.fromEvent(event);
     eventDAO.setCreator(user);
     eventDAO.setMembers(this.users.findByFullnameIn(
-      event.getMembers().stream().map(UserInfo::getUsername).collect(Collectors.toList())));
+      event.getMembers().stream().map(UserInfo::getUsername).collect(Collectors.toSet())));
     this.eventStorage.save(eventDAO);
     return Status.ok();
   }

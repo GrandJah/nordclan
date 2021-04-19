@@ -3,8 +3,8 @@ package com.nordclan.test.eventmanager.model;
 import com.nordclan.test.auth.model.User;
 import com.nordclan.test.auth.model.UserInfo;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,7 +47,7 @@ public class EventDAO {
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "event_users", joinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "members_id", referencedColumnName = "id"))
-  private List<User> members = new ArrayList<>();
+  private Set<User> members = new HashSet<>();
 
   static public EventDAO fromEvent(Event event) {
     EventDAO dao = new EventDAO();

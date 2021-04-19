@@ -2,8 +2,8 @@ package com.nordclan.test.eventmanager.model;
 
 import com.nordclan.test.auth.model.UserInfo;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Transient;
 import lombok.Data;
 
@@ -22,5 +22,5 @@ public class Event {
 
   private String creator;
 
-  private List<UserInfo> members = new ArrayList<>();
+  private Set<UserInfo> members = new HashSet<>();
 }
