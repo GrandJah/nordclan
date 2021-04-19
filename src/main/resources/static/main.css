@@ -22,6 +22,10 @@ body {
     margin: auto
 }
 
+#avatar {
+    height: 3em;
+}
+
 /*!
  * FullCalendar v3.9.0
  * Docs & License: https://fullcalendar.io/

@@ -59,6 +59,7 @@ const getStatus = () => {
   actionForm = true
   ajax("status", {}, data => {
     if (data.username !== undefined) {
+      document.querySelector("#avatar").src = encodeURI(`pictures/${data.username}`);
       document.querySelector("#username").innerText = data.username
     }
     clearTimeout(timer);
